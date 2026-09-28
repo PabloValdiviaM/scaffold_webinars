@@ -1,0 +1,986 @@
+---
+// apps/ecommerce/src/pages/index.astro
+const title = "NextCollege Rapid | El Arte de la Hamburguesa a la Parrilla";
+
+const burgers = [
+  {
+    id: "rey-parrilla",
+    name: "Rey de las hamburguesas a la parrilla",
+    level: "Nivel: Master Grill ⭐⭐⭐",
+    levelColor: "#f59e0b",
+    price: 14.99,
+    calories: "890 kcal",
+    cookTime: "12 min al fuego vivo",
+    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop&q=80",
+    shortDesc: "Carne 100% Angus flameada a la leña de roble, queso cheddar añejo fundido, cebolla caramelizada al bourbon y panceta crocante.",
+    fullDesc: "Nuestra creación cumbre. Doble medallón de carne Angus seleccionada a mano, asada a fuego directo sobre brasas de madera de roble. Cubierta con doble queso cheddar inglés fundido a punto, cebolla caramelizada durante 4 horas en reducción de bourbon, lonchas de panceta ahumada artesanal y nuestra icónica salsa secreta NextCollege BBQ ahumada.",
+    ingredients: ["200g Carne Angus Prime", "Leña de Roble", "Cheddar Añejo 12 Meses", "Panceta Artesanal", "Cebolla Bourbon", "Pan Brioche de Papa"],
+    isPopular: true
+  },
+  {
+    id: "hamburguesa-real",
+    name: "Hamburguesa Real",
+    level: "Nivel: Clásico Imperial ⭐⭐",
+    levelColor: "#38bdf8",
+    price: 11.50,
+    calories: "740 kcal",
+    cookTime: "8 min smash",
+    image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=800&auto=format&fit=crop&q=80",
+    shortDesc: "Doble medallón smash con costra caramelizada, queso americano fundido, pepinillos agridulces y aderezo imperial.",
+    fullDesc: "El homenaje definitivo a la cultura de la smash burger. Dos discos de blend de asado de tira y aguja prensados contra la plancha de hierro hirviendo hasta lograr una corteza crocante inigualable. Doble queso americano cremoso, rodajas de pepinillos dulces crujientes y emulsión Real de mostaza antigua.",
+    ingredients: ["Doble Blend Smash 160g", "Queso Americano Fundido", "Pepinillos Agridulces", "Salsa Real Secreta", "Pan Brioche con Mantequilla"],
+    isPopular: false
+  },
+  {
+    id: "royal-crispy",
+    name: "Hamburguesa Royal Crispy",
+    level: "Nivel: Crujiente Extremo ⭐⭐",
+    levelColor: "#10b981",
+    price: 12.99,
+    calories: "780 kcal",
+    cookTime: "10 min frito dorado",
+    image: "https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=800&auto=format&fit=crop&q=80",
+    shortDesc: "Pechuga de pollo de granja marinada en suero de leche y 11 especias, ensalada coleslaw fresca y emulsión honey mustard.",
+    fullDesc: "Textura y jugosidad al máximo nivel. Pechuga de pollo marinada por 24 horas en buttermilk y páprika ahumada, empanizada en panko japonés para un crujido legendario. Acompañada de ensalada coleslaw fresca con manzana verde, queso Monterey Jack y toque de miel pura de azahar.",
+    ingredients: ["Pechuga de Granja 180g", "Marinado Buttermilk 24h", "Coleslaw de Manzana Verde", "Monterey Jack", "Honey Mustard", "Pan Tostado"],
+    isPopular: true
+  },
+  {
+    id: "double-whopper",
+    name: "HamburguesaDouble Whopper",
+    level: "Nivel: Doble Fuego XXL ⭐⭐⭐",
+    levelColor: "#ef4444",
+    price: 15.50,
+    calories: "1050 kcal",
+    cookTime: "15 min parrilla de carbón",
+    image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&auto=format&fit=crop&q=80",
+    shortDesc: "Doble medallón gigante a la parrilla de carbón vivo, lechuga romana, tomate maduro, aros de cebolla morada y salsa tártara.",
+    fullDesc: "Una verdadera leyenda para los amantes del tamaño y el sabor imponente. Dos discos de 150g cada uno asados a la llama abierta, frescos tomates huertanos en rodajas gruesas, lechuga romana recién cortada, cebolla roja crujiente, pepinillos encurtidos y mayonesa suave en pan cubierto de sésamo tostado.",
+    ingredients: ["Doble Carne 300g", "Carbón Vegetal Vivo", "Tomates de Huerto", "Lechuga Romana Fresca", "Cebolla Morada", "Pan Artesanal con Sésamo"],
+    isPopular: false
+  }
+];
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content="NextCollege Rapid: Hamburguesas gourmet a la parrilla con cocción a fuego vivo, ingredientes de origen noble y entrega ultrarrápida." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #131b2e;
+      --card-border: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #f59e0b;
+      --primary-hover: #d97706;
+      --fire: #ef4444;
+      --accent: #38bdf8;
+      --font: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Top Banner Bar */
+    .top-banner {
+      background: linear-gradient(90deg, #b45309, #dc2626, #b45309);
+      color: white;
+      text-align: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      max-width: 1300px;
+      margin: 0 auto;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: white;
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-fire {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: white;
+    }
+
+    .btn-nav-pwa {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: white;
+      text-decoration: none;
+      padding: 0.55rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-nav-pwa:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
+    }
+
+    .btn-nav-admin {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      text-decoration: none;
+      padding: 0.55rem 1.1rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-nav-admin:hover {
+      color: white;
+      border-color: #64748b;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      max-width: 1200px;
+      margin: 3.5rem auto 5rem;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #f59e0b;
+      padding: 0.45rem 1.2rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #ffffff 45%, #fed7aa 80%, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: var(--text-muted);
+      max-width: 750px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2.2rem;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35);
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(239, 68, 68, 0.45);
+    }
+
+    .btn-secondary {
+      background: #131b2e;
+      border: 1px solid #1e293b;
+      color: var(--text-main);
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-secondary:hover {
+      background: #1e293b;
+      border-color: #334155;
+      transform: translateY(-3px);
+    }
+
+    /* Badges Bar */
+    .features-row {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      flex-wrap: wrap;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    .feature-icon {
+      font-size: 1.25rem;
+    }
+
+    /* Catalog Section */
+    .catalog-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-tag {
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .burger-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Burger Card */
+    .burger-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .burger-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(245, 158, 11, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(245, 158, 11, 0.1);
+    }
+
+    .card-image-wrap {
+      position: relative;
+      height: 230px;
+      overflow: hidden;
+      background: #0b0f19;
+    }
+
+    .card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .burger-card:hover .card-image-wrap img {
+      transform: scale(1.08);
+    }
+
+    .popular-ribbon {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: #ef4444;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+      z-index: 2;
+    }
+
+    .card-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .level-badge {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 0.85rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .price-tag {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .price-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .price-amount {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    .btn-detail {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: white;
+      padding: 0.65rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-detail:hover {
+      background: var(--primary);
+      color: #0b0f19;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(4, 7, 13, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 20px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2.25rem;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      animation: modalFadeIn 0.25s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: #1f2937;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.25rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover {
+      background: #374151;
+      color: white;
+    }
+
+    .modal-level {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-title {
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .modal-meta {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+
+    .modal-full-desc {
+      color: #94a3b8;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    .ingredients-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: white;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .ingredients-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .tag-item {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: #f59e0b;
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .modal-action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-modal-pwa {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: white;
+      text-decoration: none;
+      padding: 0.85rem 1.75rem;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: transform 0.2s;
+    }
+
+    .btn-modal-pwa:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Secret Grid Section */
+    .secrets-section {
+      background: #0f1524;
+      border-top: 1px solid #1e293b;
+      border-bottom: 1px solid #1e293b;
+      padding: 5rem 1.5rem;
+    }
+
+    .secrets-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .secrets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .secret-box {
+      background: #141c30;
+      border: 1px solid #243048;
+      border-radius: 16px;
+      padding: 2.2rem 1.75rem;
+      transition: transform 0.2s;
+    }
+
+    .secret-box:hover {
+      transform: translateY(-5px);
+      border-color: #f59e0b;
+    }
+
+    .secret-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .secret-box h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.75rem;
+    }
+
+    .secret-box p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-brand {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      color: white;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1.5rem 0 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-copy {
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .hero { margin: 2rem auto 3.5rem; }
+      .section-title { font-size: 2.1rem; }
+      .features-row { gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-banner">
+    🔥 ¡Parrilla Abierta Hoy! Delivery express en menos de 25 min &bull; 100% Carne Angus Certificada
+  </div>
+
+  <!-- Main Navbar -->
+  <header class="navbar">
+    <a href="/" class="brand">
+      <span style="font-size: 1.8rem;">🍔</span>
+      <span>NextCollege<span class="brand-fire">Rapid</span></span>
+    </a>
+
+    <div class="nav-links">
+      <a href="#catalogo" class="nav-link">Catálogo</a>
+      <a href="#experiencia" class="nav-link">El Fuego</a>
+      <a href="/app" class="btn-nav-pwa">📱 Abrir PWA Mobile</a>
+      <a href="/admin" class="btn-nav-admin">⚙️ Panel Admin</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-badge">
+      ⚡ Edición MasterClass CI/CD &bull; Dokploy Live
+    </div>
+
+    <h1>
+      El Sabor de la Parrilla,<br />La Velocidad de NextCollege Rapid
+    </h1>
+
+    <p>
+      Hamburguesas de autor forjadas a fuego directo sobre brasas de roble y carbón vegetal. Creadas con ingeniería gastronómica de alta precisión para los paladares más exigentes.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#catalogo" class="btn-primary">
+        <span>🍔 Explorar Menú Parrillero</span>
+        <span>&darr;</span>
+      </a>
+      <a href="/app" class="btn-secondary">
+        <span>📱 Pedir desde PWA Móvil</span>
+        <span>&rarr;</span>
+      </a>
+    </div>
+
+    <div class="features-row">
+      <div class="feature-item">
+        <span class="feature-icon">🔥</span>
+        <span>Carne 100% Angus al Fuego</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">⏱️</span>
+        <span>Delivery Promedio en 22 min</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🥖</span>
+        <span>Pan Brioche Horneado a Diario</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">⭐</span>
+        <span>4.9 / 5 Valoración Gourmet</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Burger Catalog Section -->
+  <section id="catalogo" class="catalog-section">
+    <div class="section-header">
+      <div class="section-tag">Nuestras 4 Estrellas a la Parrilla</div>
+      <h2 class="section-title">Catálogo de Obras Maestras</h2>
+      <p class="section-desc">
+        Cada hamburguesa representa una técnica gastronómica única, desde el sellado smash crujiente hasta la cocción lenta sobre brasas de leña.
+      </p>
+    </div>
+
+    <div class="burger-grid">
+      {burgers.map((b) => (
+        <article class="burger-card" id={`card-${b.id}`}>
+          <div class="card-image-wrap">
+            <img src={b.image} alt={b.name} loading="lazy" />
+            {b.isPopular && <span class="popular-ribbon">🔥 Más Pedida</span>}
+          </div>
+
+          <div class="card-body">
+            <span class="level-badge" style={`color: ${b.levelColor}; border-color: ${b.levelColor}40;`}>
+              {b.level}
+            </span>
+
+            <h3 class="card-title">{b.name}</h3>
+            <p class="card-desc">{b.shortDesc}</p>
+
+            <div class="card-footer">
+              <div class="price-tag">
+                <span class="price-label">Precio</span>
+                <span class="price-amount">${b.price.toFixed(2)}</span>
+              </div>
+
+              <button
+                type="button"
+                class="btn-detail"
+                onclick={`openDetailModal('${b.id}')`}
+              >
+                Ver Detalles &rarr;
+              </button>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- The Fire Secrets Section -->
+  <section id="experiencia" class="secrets-section">
+    <div class="secrets-container">
+      <div class="section-header">
+        <div class="section-tag">Ingeniería Gastronómica</div>
+        <h2 class="section-title">El Secreto de la Parrilla</h2>
+        <p class="section-desc">
+          Combinamos ciencia culinaria y fuego tradicional para lograr texturas crujientes y jugosidad extrema.
+        </p>
+      </div>
+
+      <div class="secrets-grid">
+        <div class="secret-box">
+          <div class="secret-icon">🥩</div>
+          <h3>Blend de Carnes Nobles</h3>
+          <p>
+            Molienda fresca diaria de asado de tira, bife y pecho con un ratio exacto de 80/20 carne-grasa para un fundido de sabor inigualable.
+          </p>
+        </div>
+
+        <div class="secret-box">
+          <div class="secret-icon">🪵</div>
+          <h3>Brasas de Roble & Quebracho</h3>
+          <p>
+            No usamos quemadores a gas. Cada medallón se sella sobre parrillas de hierro a más de 380°C alimentadas con maderas aromáticas.
+          </p>
+        </div>
+
+        <div class="secret-box">
+          <div class="secret-icon">🧈</div>
+          <h3>Pan Brioche Artesanal</h3>
+          <p>
+            Masa fermentada lentamente durante 18 horas con mantequilla de campo, dorada a la mantequilla antes del armado final.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Detail Modal -->
+  <div id="detailModal" class="modal-overlay">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeDetailModal()">&times;</button>
+      <span id="modalLevelBadge" class="modal-level"></span>
+      <h3 id="modalBurgerTitle" class="modal-title"></h3>
+      
+      <div class="modal-meta">
+        <span id="modalCalories">🔥 0 kcal</span>
+        <span>&bull;</span>
+        <span id="modalCookTime">⏱️ 0 min</span>
+      </div>
+
+      <p id="modalDescription" class="modal-full-desc"></p>
+
+      <div class="ingredients-title">Ingredientes & Técnica:</div>
+      <div id="modalIngredients" class="ingredients-tags"></div>
+
+      <div class="modal-action-bar">
+        <div>
+          <span style="font-size: 0.8rem; color: #94a3b8; display: block;">Precio Final</span>
+          <span id="modalPrice" style="font-size: 1.8rem; font-weight: 900; color: #f59e0b;">$0.00</span>
+        </div>
+        <a href="/app" class="btn-modal-pwa">
+          <span>📲 Ordenar en PWA</span>
+          <span>&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-brand">
+      🍔 NextCollege<span style="color: #f59e0b;">Rapid</span>
+    </div>
+    <p style="color: #94a3b8; font-size: 0.95rem; max-width: 500px; margin: 0 auto;">
+      Infraestructura moderna de alto impacto desplegada mediante Continuous Delivery en Dokploy.
+    </p>
+
+    <div class="footer-links">
+      <a href="/">Portal E-commerce</a>
+      <a href="/app">📱 App Móvil (PWA)</a>
+      <a href="/admin">⚙️ Panel Administrativo</a>
+      <a href="/api/health">🩺 API Health</a>
+    </div>
+
+    <div class="footer-copy">
+      &copy; {new Date().getFullYear()} NextCollege Rapid &bull; Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <!-- Modal Script Data Injection -->
+  <script is:inline define:vars={{ burgers }}>
+    window.BURGER_DATA = {};
+    burgers.forEach(b => {
+      window.BURGER_DATA[b.id] = b;
+    });
+
+    window.openDetailModal = function(burgerId) {
+      const b = window.BURGER_DATA[burgerId];
+      if (!b) return;
+
+      document.getElementById('modalLevelBadge').innerText = b.level;
+      document.getElementById('modalLevelBadge').style.color = b.levelColor;
+      document.getElementById('modalLevelBadge').style.borderColor = b.levelColor + '40';
+      document.getElementById('modalLevelBadge').style.background = b.levelColor + '15';
+
+      document.getElementById('modalBurgerTitle').innerText = b.name;
+      document.getElementById('modalCalories').innerText = '🔥 ' + b.calories;
+      document.getElementById('modalCookTime').innerText = '⏱️ ' + b.cookTime;
+      document.getElementById('modalDescription').innerText = b.fullDesc;
+      document.getElementById('modalPrice').innerText = '$' + b.price.toFixed(2);
+
+      const ingredientsContainer = document.getElementById('modalIngredients');
+      ingredientsContainer.innerHTML = '';
+      b.ingredients.forEach(ing => {
+        const tag = document.createElement('span');
+        tag.className = 'tag-item';
+        tag.innerText = ing;
+        ingredientsContainer.appendChild(tag);
+      });
+
+      const modal = document.getElementById('detailModal');
+      modal.classList.add('active');
+    };
+
+    window.closeDetailModal = function() {
+      const modal = document.getElementById('detailModal');
+      modal.classList.remove('active');
+    };
+
+    // Close modal on click outside
+    document.getElementById('detailModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        window.closeDetailModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        window.closeDetailModal();
+      }
+    });
+  </script>
+
+</body>
+</html>
