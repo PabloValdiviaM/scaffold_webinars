@@ -36,11 +36,11 @@ Las 4 capas corren en un **único contenedor Docker** exponiendo un **único pue
 
 ## ⚙️ Cómo convertir este repositorio en "Template Repository" en GitHub
 
-1. Entra a tu repositorio: [https://github.com/PabloValdiviaM/scaffold_webinars](https://github.com/PabloValdiviaM/scaffold_webinars)
-2. Haz clic en **Settings** (Configuración del repositorio).
-3. En la sección **General**, marca la casilla:  
+1. Entra a tu repositorio en GitHub: [https://github.com/PabloValdiviaM/webinar-02-ia-pnp](https://github.com/PabloValdiviaM/webinar-02-ia-pnp) (o el repositorio asignado a tu webinar).
+2. Haz clic en la pestaña **Settings** (Configuración del repositorio).
+3. En la primera sección (**General**), marca la casilla:  
    ✅ **Template repository**.
-4. ¡Listo! Cualquier usuario podrá pulsar el botón verde **"Use this template"** $\rightarrow$ **"Create a new repository"**.
+4. ¡Listo! A partir de ese momento, cualquier participante o tú mismo podrán pulsar el botón verde **"Use this template"** $\rightarrow$ **"Create a new repository"**.
 
 ---
 
@@ -48,7 +48,7 @@ Las 4 capas corren en un **único contenedor Docker** exponiendo un **único pue
 
 1. **Crear MySQL:** En Dokploy $\rightarrow$ *Create Service* $\rightarrow$ *Database* $\rightarrow$ *MySQL* (base: `demo`, usuario: `pablovaldivia`, puerto externo: `3306`).
 2. **Crear Aplicación:** En el mismo proyecto $\rightarrow$ *Create Service* $\rightarrow$ *Application* $\rightarrow$ *Git* $\rightarrow$ Rama `main` $\rightarrow$ Build Type: `Dockerfile` $\rightarrow$ Puerto: `3000`.
-3. **Environment:**
+3. **Environment Variables:**
    ```env
    NODE_ENV=production
    PORT=3000
