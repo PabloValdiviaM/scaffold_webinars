@@ -1,1 +1,1 @@
-# 🚀 NextCollege MasterClass Scaffold & Template Repository
+# 🚀 NextCollege Scaffold & Template Repository
